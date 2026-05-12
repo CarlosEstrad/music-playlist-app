@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --bg-color: #f5f7f9;
+    --nav-bg: #cbc9c9;
+    --text-color: #4a5568;
+    --accent-color2: #3182ce;
+    --accent-color: #31cebf;
+    --border-color: #e2e8f0;
+}
+
+:host {
+    --accent-color: #4c51bf; /* Azul/Violeta profesional */
+    --border-color: #e2e8f0;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --bg-card: #ffffff;
+    --primary: #4c51bf;
+    --danger: #e53e3e;
+    --success: #38a169;
+    --bg-card: #ffffff;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --border: #e2e8f0;
+}
+
+html {
+    margin: 0% !important;
+    text-align: center;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.logo-img {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+}

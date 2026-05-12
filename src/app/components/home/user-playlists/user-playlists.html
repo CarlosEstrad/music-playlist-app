@@ -1,0 +1,73 @@
+<div class="explorer-container">
+    <header class="explorer-header">
+        <h1>Community Playlists</h1>
+        <p>Discover what others are listening to</p>
+    </header>
+
+    @if (loading) {
+    <div class="loader">Loading playlists...</div>
+    }
+
+    <div class="playlists-grid">
+        @for (playlist of playlists; track playlist.id) {
+        <div class="playlist-card explore" (click)="viewPlaylistDetails(playlist)">
+            <div class="card-badge">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="card-content">
+                <h3>{{ playlist.name }}</h3>
+                <p class="description">{{ playlist.description || 'No description' }}</p>
+
+                <div class="user-info">
+                    <div class="user-avatar">
+                        {{ playlist.user?.username?.charAt(0) | uppercase }}
+                    </div>
+                    <div class="user-meta">
+                        <span class="username">{{ playlist.user?.username }}</span>
+                        <span class="user-email">{{ playlist.user?.email }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="song-count">
+                    <i class="fa fa-music"></i> {{ playlist.songs.length }} tracks
+                </span>
+                <span class="date">{{ playlist.createdAt | date:'shortDate' }}</span>
+            </div>
+        </div>
+        }
+    </div>
+
+    @if (selectedPlaylist) {
+    <div class="modal-overlay">
+        <div class="modal-card view-only">
+            <div class="modal-header">
+                <div>
+                    <h2>{{ selectedPlaylist.name }}</h2>
+                    <p class="creator">Created by: {{ selectedPlaylist.user?.username }}</p>
+                </div>
+                <button class="close-btn" (click)="closeDetails()">&times;</button>
+            </div>
+
+            <div class="song-list-container">
+                @for (song of selectedPlaylist.songs; track song.id) {
+                <div class="song-row">
+                    <div class="song-icon"><i class="fa fa-play"></i></div>
+                    <div class="song-data">
+                        <span class="title">{{ song.title }}</span>
+                        <span class="artist">{{ song.artist }} — {{ song.album }}</span>
+                    </div>
+                    <span class="duration">{{ song.duration }}</span>
+                </div>
+                } @empty {
+                <p class="empty-msg">This playlist doesn't have any songs yet.</p>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-primary" (click)="closeDetails()">Close Explorer</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

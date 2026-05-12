@@ -1,0 +1,140 @@
+<div class="playlists-container">
+    <header class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">Music Playlists</h1>
+            <p class="page-subtitle">Create and manage your track collections</p>
+        </div>
+        <button class="add-button" (click)="openCreateModal()">
+            <i class="fa fa-plus"></i> New Playlist
+        </button>
+    </header>
+
+    <div class="playlists-grid">
+        @for (playlist of playlists; track playlist.id) {
+        <div class="playlist-card" [class.active]="selectedPlaylist?.id === playlist.id">
+            <div class="card-main-info" (click)="selectPlaylist(playlist)">
+                <div class="card-icon-box">
+                    <i class="fa-solid fa-compact-disc"></i>
+                </div>
+                <div class="card-text">
+                    <h3>{{ playlist.name }}</h3>
+                    <p>{{ playlist.description || 'No description' }}</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn-action edit" (click)="openEditModal(playlist)" title="Edit Name/Desc">
+                    <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn-action delete" (click)="openDeleteConfirm(playlist)" title="Delete Playlist">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state">
+            <p>No playlists found. Create your first one!</p>
+        </div>
+        }
+    </div>
+
+    @if (selectedPlaylist) {
+    <div class="songs-management-section">
+        <div class="management-header">
+            <h2>Managing: <span>{{ selectedPlaylist.name }}</span></h2>
+            <button class="btn-close-management" (click)="selectedPlaylist = null">&times;</button>
+        </div>
+
+        <div class="management-grid">
+            <div class="management-col">
+                <h3>Current Tracks</h3>
+                <div class="track-list scrollable">
+                    @for (song of playlistSongs; track song.id) {
+                    <div class="track-item">
+                        <div class="track-info">
+                            <span class="track-title">{{ song.title }}</span>
+                            <span class="track-artist">{{ song.artist }}</span>
+                        </div>
+                        <button class="btn-remove" (click)="removeSong(song.id)" title="Remove from list">
+                            <i class="fa fa-minus-circle"></i>
+                        </button>
+                    </div>
+                    } @empty {
+                    <p class="info-text">This playlist is empty.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="management-col">
+                <h3>Add More Songs</h3>
+                <div class="track-list scrollable">
+                    @for (song of allAvailableSongs; track song.id) {
+                    <div class="track-item add">
+                        <div class="track-info">
+                            <span class="track-title">{{ song.title }}</span>
+                            <span class="track-artist">{{ song.artist }}</span>
+                        </div>
+                        <button class="btn-add" (click)="addSong(song.id)" title="Add to playlist">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@if (isModalOpen) {
+<div class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h2>{{ isEditing ? 'Edit Playlist' : 'New Playlist' }}</h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        <form [formGroup]="playlistForm" (ngSubmit)="savePlaylist()" class="playlist-form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="name" placeholder="E.g. Morning Hits">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea formControlName="description" rows="3"
+                    placeholder="What is this collection about?"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="submit" class="btn-primary" [disabled]="playlistForm.invalid">
+                    {{ isEditing ? 'Save Changes' : 'Create Playlist' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+}
+
+@if (showDeleteModal) {
+<div class="modal-overlay">
+    <div class="modal-card delete-modal">
+        <div class="modal-header">
+            <h2 class="text-danger">Delete Playlist</h2>
+            <button class="close-btn" (click)="closeDeleteModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="warning-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <p>Are you sure you want to delete <strong>{{ playlistToDelete?.name }}</strong>?</p>
+            <p class="subtitle">This action cannot be undone and all track associations will be lost.</p>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+            <button type="button" class="btn-danger" (click)="confirmDelete()">
+                Confirm Delete
+            </button>
+        </div>
+    </div>
+</div>
+}

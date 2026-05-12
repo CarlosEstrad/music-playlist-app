@@ -1,0 +1,77 @@
+<div class="main-wrapper">
+  <div class="form-container">
+    <!-- Icono decorativo -->
+    <div class="logo-container">
+      <img src="https://cdn-icons-png.flaticon.com/512/3844/3844724.png" alt="Music Logo" class="logo-img">
+    </div>
+
+    <p class="title">MUSIC PLAYLIST</p>
+
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <input type="email" class="input" placeholder="Email" formControlName="email">
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <small class="error-text">Email requerido o no válido</small>
+        }
+      </div>
+
+      <div class="input-group">
+        <input type="password" class="input" placeholder="Password" formControlName="password">
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+        <small class="error-text">Mínimo 6 caracteres</small>
+        }
+      </div>
+
+      <button class="form-btn" type="submit" [disabled]="loginForm.invalid">
+        Log in
+      </button>
+    </form>
+
+    <p class="sign-up-label">
+      Don't have an account? <span class="sign-up-link" (click)="openRegisterModal()">Sign up</span>
+    </p>
+
+    @if (isRegisterModalOpen) {
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>Create Account</h2>
+          <button class="close-btn" (click)="closeRegisterModal()">&times;</button>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="playlist-form">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" formControlName="username" placeholder="johndoe">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" formControlName="password" placeholder="******">
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" placeholder="******">
+            @if (registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched) {
+            <small class="error-text">Passwords do not match</small>
+            }
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" (click)="closeRegisterModal()">Cancel</button>
+            <button type="submit" class="btn-primary" [disabled]="registerForm.invalid || loading">
+              {{ loading ? 'Creating...' : 'Register' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    }
+  </div>
+</div>

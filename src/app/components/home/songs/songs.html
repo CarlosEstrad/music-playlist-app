@@ -1,0 +1,125 @@
+<div class="songs-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div>
+        <h1 class="page-title">Music Library</h1>
+        <i class="fa-solid fa-music"></i>
+      </div>
+      <p class="page-subtitle">Manage your songs and tracks</p>
+    </div>
+    <button class="add-button" (click)="openCreateModal()">
+      <i class="fa fa-plus"></i> Add New Song
+    </button>
+  </header>
+
+  <div class="table-card">
+    <table class="songs-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Song Details</th>
+          <th>Album</th>
+          <th>Duration <i class="fa fa-clock"></i></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (song of songs; track song.id; let i = $index) {
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div class="song-info">
+              <div class="song-icon-box"><i class="fa fa-music"></i></div>
+              <div class="song-details">
+                <span class="song-title">{{ song.title }}</span>
+                <span class="song-artist">{{ song.artist }}</span>
+              </div>
+            </div>
+          </td>
+          <td>{{ song.album }}</td>
+          <td>{{ song.duration }}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-icon edit" (click)="openEditModal(song)"><i class="fa fa-edit"></i></button>
+              <button class="btn-icon delete" (click)="deleteSong(song)"><i class="fa fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="5" class="empty-state">No songs found. Add your first track!</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (isModalOpen) {
+<div class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>{{ isEditing ? 'Edit Track' : 'New Track' }}</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+
+    <form [formGroup]="songForm" (ngSubmit)="saveSong()" class="song-form">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" placeholder="Song title">
+        <span class="error" *ngIf="songForm.get('title')?.touched && songForm.get('title')?.invalid">Title is
+          required</span>
+      </div>
+
+      <div class="form-group">
+        <label>Artist</label>
+        <input type="text" formControlName="artist" placeholder="Artist name">
+      </div>
+
+      <div class="form-group">
+        <label>Album</label>
+        <input type="text" formControlName="album" placeholder="Album name">
+      </div>
+
+      <div class="form-group">
+        <label>Duration (Seconds)</label>
+        <input type="text" formControlName="duration" placeholder="Ex: 210">
+        <span class="error" *ngIf="songForm.get('duration')?.touched && songForm.get('duration')?.invalid">Numeric value
+          required</span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="songForm.invalid">
+          {{ isEditing ? 'Update' : 'Create' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+}
+
+@if (isDeleteModalOpen) {
+  <div class="modal-overlay">
+    <div class="modal-card delete-modal">
+      <div class="modal-header-delete">
+        <div class="delete-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 class="delete-title">Confirm Delete</h2>
+        <button class="close-btn" (click)="closeDeleteModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <p>Are you sure you want to delete <strong>{{ songToDelete?.title }}</strong>?</p>
+        <p class="warning-text">This action cannot be undone.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn-danger" (click)="confirmDelete()">Delete Song</button>
+      </div>
+    </div>
+  </div>
+}

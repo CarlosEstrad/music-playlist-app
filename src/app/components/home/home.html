@@ -1,0 +1,105 @@
+<div class="app">
+    <!-- Sidenav -->
+    <aside id="sidenav" class="sidenav" [class.is-expanded]="isExpanded">
+        <header class="sidenav__header header">
+            <span class="header__icon">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3844/3844724.png" alt="Music Logo"
+                        class="logo-img">
+                </div>
+            </span>
+            <span class="header__text" *ngIf="isExpanded">Music PlayList</span>
+            <button class="sidenav__button" (click)="toggleSidenav()" aria-label="Expand">
+                <span class="sidenav__button-icon">
+                    <i class="fa" [ngClass]="isExpanded ? 'fa-angle-left' : 'fa-angle-right'"></i>
+                </span>
+            </button>
+        </header>
+
+        <nav class="sidenav__nav nav">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <button class="nav__button" routerLink="songs" routerLinkActive="is-active">
+                        <span class="nav__icon"><i class="fa fa-music"></i></span>
+                        <span class="nav__label" *ngIf="isExpanded">Songs</span>
+                    </button>
+                </li>
+                <li class="nav__item">
+                    <button class="nav__button" routerLink="manage-playlists" routerLinkActive="is-active">
+                        <span class="nav__icon"><i class="fa fa-list-ul"></i></span>
+                        <span class="nav__label" *ngIf="isExpanded">Playlists</span>
+                    </button>
+                </li>
+                <li class="nav__item">
+                    <button class="nav__button" routerLink="my-stats" routerLinkActive="is-active">
+                        <span class="nav__icon"><i class="fa fa-chart-line"></i></span>
+                        <span class="nav__label" *ngIf="isExpanded">Stats</span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="nav__divider"></div>
+
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <button class="nav__button" (click)="onLogout()">
+                        <span class="nav__icon"><i class="fa fa-sign-out-alt"></i></span>
+                        <span class="nav__label" *ngIf="isExpanded">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidenav__footer user">
+            <button class="user__button" (click)="openUpdateModal()">
+                <div class="user__badge">
+                    <div class="user__image">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+                @if (isExpanded){
+                <div class="user__text">
+                    <span class="user__name">{{ user.name }}</span>
+                    <span class="user__title">{{ user.role }}</span>
+                </div>
+                }
+            </button>
+        </div>
+
+        @if (isUpdateModalOpen) {
+        <div class="modal-overlay">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h2>Update Profile</h2>
+                    <button class="close-btn" (click)="isUpdateModalOpen = false">&times;</button>
+                </div>
+
+                <form [formGroup]="updateForm" (ngSubmit)="onUpdateProfile()" class="playlist-form">
+                    <div class="form-group">
+                        <label>New Username</label>
+                        <input type="text" formControlName="username" placeholder="Enter new username">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Change Password (Optional)</label>
+                        <input type="password" formControlName="password" placeholder="Leave blank to keep current">
+                        <small class="user__title" style="font-size: 10px;">Only fill if you want to change it</small>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary" (click)="isUpdateModalOpen = false">Cancel</button>
+                        <button type="submit" class="btn-primary" [disabled]="updateForm.invalid">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        }
+    </aside>
+    <div class="mobile-overlay" *ngIf="isExpanded" (click)="toggleSidenav()"></div>
+    <!-- Contenido principal -->
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

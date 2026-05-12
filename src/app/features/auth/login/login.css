@@ -1,0 +1,255 @@
+/* Centrado total en la pantalla */
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 15px; */
+}
+
+.form-container {
+    width: 100%;
+    max-width: 350px;
+    /* Ancho máximo en escritorio */
+    min-height: 500px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    margin: 30px 0 30px 0;
+}
+
+.title {
+    text-align: center;
+    font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+    margin: 10px 0 30px 0;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border-radius: 20px;
+    border: 1px solid #c0c0c0;
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    width: 100%;
+}
+
+.error-text {
+    color: #ff3d00;
+    font-size: 10px;
+    margin-top: 4px;
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+
+.page-link {
+    text-decoration: underline;
+    margin: 0;
+    text-align: end;
+    color: #747474;
+}
+
+.page-link-label {
+    cursor: pointer;
+    font-family: "Lucida Sans", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.form-btn {
+    padding: 10px 15px;
+    font-family: "Lucida Sans", sans-serif;
+    border-radius: 20px;
+    border: 0 !important;
+    background: teal;
+    color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: opacity 0.3s;
+}
+
+.form-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.sign-up-label {
+    margin: 0;
+    font-size: 10px;
+    color: #747474;
+    font-family: "Lucida Sans", sans-serif;
+    text-align: center;
+}
+
+.sign-up-link {
+    color: teal;
+    cursor: pointer;
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 400px) {
+    .form-container {
+        padding: 20px 15px;
+        box-shadow: none;
+        /* Se ve más limpio en móviles */
+        background-color: transparent;
+    }
+
+    .main-wrapper {
+        background-color: #fff;
+    }
+}
+
+/* --- ESTILOS UNIFICADOS DEL MODAL (ESTILO LOGIN) --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-card {
+    background-color: #fff;
+    width: 100%;
+    max-width: 380px; /* Un poco más ancho que el login para que respire */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-sizing: border-box;
+    animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    color: #333;
+}
+
+/* Reutilizando tu estilo de inputs del Login */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-family: "Lucida Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #747474;
+    margin-left: 5px;
+}
+
+.form-group input {
+    border-radius: 20px;
+    border: 1px solid #c0c0c0;
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.form-group input:focus {
+    border-color: teal;
+    box-shadow: 0 0 5px rgba(0, 128, 128, 0.2);
+}
+
+/* Footer y Botones con estilo Teal */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    font-family: "Lucida Sans", sans-serif;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #747474;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-primary {
+    padding: 10px 25px;
+    font-family: "Lucida Sans", sans-serif;
+    border-radius: 20px;
+    border: 0;
+    background: teal;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    opacity: 0.8;
+}
+
+.btn-primary:disabled {
+    background: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #c0c0c0;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff3d00;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
