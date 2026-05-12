@@ -1,59 +1,157 @@
-# MusicPlaylistApp
+# 🎨 Frontend: Playlist Manager App (Angular 19)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+Este repositorio contiene la aplicación cliente desarrollada en Angular 19. La interfaz ha sido diseñada para ofrecer una experiencia de usuario fluida, reactiva y totalmente responsiva, permitiendo la gestión integral de listas de reproducción musicales.
 
-## Development server
+---
 
-To start a local development server, run:
+# 📝 Descripción del Proyecto
 
+La SPA (Single Page Application) permite a los usuarios interactuar de forma intuitiva con la API de Playlist Manager. Incluye módulos de autenticación, exploración de catálogos, creación de playlists personalizadas y una gestión avanzada de perfiles, todo bajo un diseño moderno con Tailwind CSS.
+
+---
+
+# 🛠️ Tecnologías Utilizadas
+
+**Framework:** Angular 19.
+
+**Estilos:** Tailwind CSS (Mobile-first design).
+
+**Gestión de Estado:** Servicios inyectables con RxJS.
+
+**Pruebas:** Jasmine & Karma.
+
+**Seguridad:** Interceptores HTTP para gestión de JWT.
+
+**Iconografía:** Inline SVGs y Heroicons.
+
+---
+
+# 🏗️ Explicación de la Arquitectura
+
+Se ha implementado una arquitectura basada en Componentes y Servicios, siguiendo el principio de responsabilidad única:
+
+Core Layer: Contiene servicios singleton (Auth, Playlists, Songs) e interceptores que gestionan la comunicación con el Backend.
+
+Shared Layer: Modelos de datos (Interfaces) y servicios de notificaciones transversales.
+
+Presentation Layer: Componentes modulares (Login, Home, PlaylistManager, Songs) que manejan la lógica de la UI.
+
+Guards: Protección de rutas para asegurar que solo usuarios autenticados accedan al panel de gestión.
+
+---
+
+# 🚀 Instalación y Ejecución
+
+Prerrequisitos:
+
+Node.js (Versión 18 o superior).
+
+Angular CLI instalado globalmente
+
+```bash
+npm install -g @angular/cli
+```
+
+Pasos:
+
+Instalar dependencias:
+```bash
+npm install
+```
+
+Configurar entorno: Verificar el archivo src/environments/environment.ts con la URL de la API.
+
+Ejecutar en desarrollo:
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acceso: Abrir http://localhost:4200 en el navegador.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+# ⚙️ Variables de Entorno Necesarias
 
+Las configuraciones se encuentran en la carpeta src/environments/:
+
+apiUrl: URL base de la API .NET (ej: https://localhost:7000).
+
+production: Booleano para definir el entorno de compilación.
+
+---
+
+# 🧪 Instrucciones para Ejecutar Pruebas
+
+Se ha puesto especial énfasis en la estabilidad del código mediante Pruebas Unitarias.
+
+**Ejecutar pruebas:**
 ```bash
-ng generate component component-name
+ng test --no-watch --code-coverage
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Cobertura: El proyecto alcanza un 91.35% de cobertura, validando:
 
-```bash
-ng generate --help
-```
+Inyección de tokens en el AuthInterceptor.
 
-## Building
+Lógica de formularios reactivos y validadores.
 
-To build the project run:
+Comunicación asíncrona entre componentes y servicios.
 
-```bash
-ng build
-```
+Flujos de navegación y guardias de ruta.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# 💡 Justificación de Decisiones Técnicas
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Formularios Reactivos: Se prefirieron sobre los basados en plantillas para permitir validaciones síncronas/asíncronas complejas y un mejor testeo unitario.
 
-```bash
-ng test
-```
+Tailwind CSS: Elegido por su capacidad de generar archivos CSS mínimos en producción y facilitar un diseño responsivo sin escribir media queries manuales.
 
-## Running end-to-end tests
+Interceptores HTTP: Implementados para centralizar la lógica de seguridad, inyectando el token JWT en cada cabecera de forma transparente para el desarrollador.
 
-For end-to-end (e2e) testing, run:
+RxJS: Uso de Observable para manejar la asincronía de la API, permitiendo una reactividad óptima en la UI.
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+# 📊 Explicación del Modelo de Datos
 
-## Additional Resources
+La aplicación consume modelos de TypeScript que mapean exactamente la estructura del backend:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+User/LoginData: Manejo de la sesión y el perfil.
+
+Playlist: Estructura de cabecera de las listas.
+
+Song: Detalle de las pistas musicales.
+
+Reply: Interfaz genérica para estandarizar todas las respuestas de la API.
+
+---
+
+# 💾 Plan de Backup y Recuperación (Frontend)
+
+Aunque el Frontend es estático, se garantiza la continuidad mediante:
+
+Control de Versiones: Repositorio en GitHub con historial completo.
+
+CI/CD: Scripts listos para despliegue en entornos como Vercel o Netlify.
+
+Persistencia Local: Uso de localStorage para mantener la sesión del usuario ante recargas accidentales del navegador.
+
+---
+
+# 🤖 Documentación del Uso de IA
+
+Se utilizó IA como herramienta de aceleración de desarrollo en los siguientes puntos:
+
+Generación de Mocks: Creación de datos de prueba para las suites de Jasmine.
+
+Refactorización de CSS: Optimización de clases de Tailwind para mejorar la consistencia visual.
+
+Troubleshooting de RxJS: Resolución de problemas de anidamiento de observables.
+
+Documentación: Generación de la estructura base de este README siguiendo requerimientos técnicos.
+
+---
+
+**Autor:** Carlos Estrada | Año: 2026
+````

@@ -68,6 +68,7 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
+          "codeCoverage": true,
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [
